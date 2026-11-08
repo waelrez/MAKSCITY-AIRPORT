@@ -1,0 +1,489 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIRPORT RP | المطار الدولي</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+ --bg:#08111d;--panel:#101e2e;--panel2:#14263a;
+ --gold:#d8b56b;--white:#f4f7fb;--muted:#9baec2;
+ --line:#263a50;--green:#36c995;--red:#e46d72;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--white);font-family:'Cairo',sans-serif}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.topbar{background:#050c15;border-bottom:1px solid var(--line);padding:10px 7%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-size:19px;font-weight:900;letter-spacing:1px}
+.brand span{color:var(--gold)}
+.topbar small{color:var(--muted)}
+.hero{min-height:470px;background:linear-gradient(90deg,rgba(4,12,22,.96),rgba(4,12,22,.55)),url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1800&q=85') center/cover;display:flex;align-items:center;padding:65px 8%}
+.hero-content{max-width:680px}
+.eyebrow{color:var(--gold);font-weight:800;letter-spacing:2px}
+h1{font-size:clamp(34px,6vw,62px);line-height:1.35;margin:12px 0}
+.hero p{color:#d1dce8;line-height:2;font-size:16px}
+.btn{background:var(--gold);color:#101722;border:0;border-radius:7px;padding:12px 22px;font-weight:900}
+.btn:hover{filter:brightness(1.1)}
+.btn.secondary{background:var(--panel2);color:white;border:1px solid var(--line)}
+.btn.danger{background:#612d36;color:white}
+.nav{display:flex;gap:7px;overflow:auto;padding:13px 7%;background:#0c1927;border-bottom:1px solid var(--line)}
+.nav button{white-space:nowrap;background:transparent;color:var(--muted);border:0;padding:10px 15px;border-radius:6px;font-weight:700}
+.nav button.active,.nav button:hover{background:var(--gold);color:#111b27}
+.container{width:min(1120px,90%);margin:35px auto}
+.page{display:none}
+.page.active{display:block}
+.section-title{font-size:25px;margin:0 0 8px}
+.subtitle{color:var(--muted);line-height:2;margin-bottom:25px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:17px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.card-body{padding:20px}
+.card h3{margin:0 0 8px}
+.card p{color:var(--muted);line-height:1.9;margin:5px 0}
+.card img{width:100%;height:175px;object-fit:cover}
+.icon{color:var(--gold);font-size:27px}
+.formbox{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:25px;max-width:850px}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1/-1}
+label{font-size:13px;color:#c9d5e2;font-weight:700}
+input,select,textarea{background:#091523;border:1px solid var(--line);color:white;border-radius:6px;padding:12px;width:100%;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+textarea{resize:vertical;min-height:90px}
+.notice{padding:14px 17px;border-right:3px solid var(--gold);background:#182638;color:#e0e7ef;line-height:2;border-radius:5px;margin:17px 0}
+.notice.red{border-color:var(--red)}
+.notice.green{border-color:var(--green)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.stat{background:var(--panel);padding:19px;border:1px solid var(--line);border-radius:9px}
+.stat strong{font-size:25px;color:var(--gold);display:block}
+.stat span{font-size:13px;color:var(--muted)}
+.passport{background:linear-gradient(135deg,#1a3045,#0c1828);border:1px solid var(--gold);border-radius:12px;padding:25px;max-width:650px;position:relative;overflow:hidden}
+.passport:after{content:'✈';position:absolute;font-size:170px;opacity:.04;left:15px;top:10px}
+.passport h2{color:var(--gold);margin-top:0}
+.passport .data{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:20px}
+.data div{border-bottom:1px solid var(--line);padding:8px 0}
+.data small{display:block;color:var(--muted)}
+.data b{font-size:14px}
+.ticket{background:var(--panel);border:1px dashed var(--gold);border-radius:10px;padding:18px;margin:12px 0}
+.ticket-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.status{color:var(--gold);font-size:12px;font-weight:900}
+.rule{border-bottom:1px solid var(--line);padding:15px 0;line-height:2}
+.rule b{color:var(--gold)}
+.gallery img{height:210px}
+footer{background:#050c15;border-top:1px solid var(--line);padding:30px 7%;text-align:center;color:var(--muted);line-height:2;margin-top:55px}
+footer strong{color:var(--gold)}
+@media(max-width:650px){
+ .hero{padding:45px 6%;min-height:410px}
+ .formgrid{grid-template-columns:1fr}
+ .field.full{grid-column:auto}
+ .container{width:92%}
+ .formbox{padding:17px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+ <div class="brand">✈ AIRPORT <span>RP</span></div>
+ <small>الإدارة العامة للمطار الدولي | نظام خدمات المسافرين</small>
+</header>
+
+<section class="hero">
+ <div class="hero-content">
+  <div class="eyebrow">INTERNATIONAL AIRPORT • ROLEPLAY</div>
+  <h1>مرحباً بك في<br>المطار الدولي</h1>
+  <p>المنصة الرسمية لخدمات السفر داخل عالم Roleplay. أنشئ جواز سفرك، احجز رحلتك، وتابع طلبات المغادرة والعودة بكل سهولة.</p>
+  <div class="actions">
+   <button class="btn" onclick="showPage('departure')">حجز رحلة مغادرة</button>
+   <button class="btn secondary" onclick="showPage('passport')">جواز السفر RP</button>
+  </div>
+ </div>
+</section>
+
+<nav class="nav">
+ <button class="active" data-page="home" onclick="showPage('home')">الرئيسية</button>
+ <button data-page="passport" onclick="showPage('passport')">جواز السفر</button>
+ <button data-page="departure" onclick="showPage('departure')">المغادرة</button>
+ <button data-page="return" onclick="showPage('return')">العودة</button>
+ <button data-page="tickets" onclick="showPage('tickets')">طلباتي</button>
+ <button data-page="rules" onclick="showPage('rules')">القوانين</button>
+ <button data-page="information" onclick="showPage('information')">معلومات المطار</button>
+</nav>
+
+<main class="container">
+
+<!-- HOME -->
+<section id="home" class="page active">
+ <h2 class="section-title">مرحباً بك في AIRPORT RP</h2>
+ <p class="subtitle">جميع خدمات السفر والإجراءات الرسمية الخاصة بسيرفرنا في مكان واحد.</p>
+ <div class="grid">
+  <div class="stat"><strong>48H</strong><span>المدة الدنيا لإرسال طلب السفر</span></div>
+  <div class="stat"><strong>RP ID</strong><span>جواز سفر خاص بعالم Roleplay</span></div>
+  <div class="stat"><strong>24/7</strong><span>استقبال طلبات التذاكر إلكترونياً</span></div>
+ </div>
+ <div class="notice">تنبيه: يجب إنشاء جواز سفر RP قبل تقديم طلب المغادرة أو العودة. جميع الطلبات تخضع لمراجعة إدارة المطار.</div>
+ <h2 class="section-title" style="margin-top:35px">خدماتنا</h2>
+ <div class="grid">
+  <div class="card">
+   <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80">
+   <div class="card-body"><h3>تذاكر المغادرة</h3><p>تقديم طلب رسمي لمغادرة السيرفر والسفر إلى وجهة أخرى في RP.</p><button class="btn" onclick="showPage('departure')">طلب المغادرة</button></div>
+  </div>
+  <div class="card">
+   <img src="https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80">
+   <div class="card-body"><h3>تذاكر العودة</h3><p>طلب العودة إلى السيرفر بعد انتهاء فترة السفر.</p><button class="btn" onclick="showPage('return')">طلب العودة</button></div>
+  </div>
+  <div class="card">
+   <img src="https://images.unsplash.com/photo-1544006659-f0b21884ce1d?auto=format&fit=crop&w=800&q=80">
+   <div class="card-body"><h3>جواز السفر</h3><p>إنشاء وثيقة تعريف خاصة بشخصيتك داخل السيرفر.</p><button class="btn" onclick="showPage('passport')">إنشاء الجواز</button></div>
+  </div>
+ </div>
+ <h2 class="section-title" style="margin-top:35px">أجواء المطار</h2>
+ <div class="grid gallery">
+  <div class="card"><img src="https://images.unsplash.com/photo- airport-terminal?auto=format&fit=crop&w=800&q=80" onerror="this.src='https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80'"></div>
+  <div class="card"><img src="https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?auto=format&fit=crop&w=800&q=80"></div>
+  <div class="card"><img src="https://images.unsplash.com/photo-1474302770737-173ee21bab63?auto=format&fit=crop&w=800&q=80"></div>
+ </div>
+</section>
+
+<!-- PASSPORT -->
+<section id="passport" class="page">
+ <h2 class="section-title">جواز السفر RP</h2>
+ <p class="subtitle">قم بإنشاء وثيقة تعريف لشخصيتك داخل السيرفر. المعلومات هنا خاصة بالـ Roleplay فقط.</p>
+ <div class="formbox">
+  <div class="notice">يجب إدخال معلومات شخصيتك داخل RP، وليس معلوماتك الشخصية الحقيقية.</div>
+  <form id="passportForm">
+   <div class="formgrid">
+    <div class="field"><label>الاسم الكامل داخل RP *</label><input name="fullname" required placeholder="الاسم والنسب"></div>
+    <div class="field"><label>اسم المستخدم Roblox *</label><input name="username" required placeholder="Roblox Username"></div>
+    <div class="field"><label>تاريخ الميلاد داخل RP *</label><input type="date" name="dob" required></div>
+    <div class="field"><label>الجنسية داخل RP *</label><input name="nationality" required placeholder="الجنسية"></div>
+    <div class="field"><label>الجنس داخل RP</label><select name="gender"><option>ذكر</option><option>أنثى</option></select></div>
+    <div class="field"><label>المهنة داخل RP</label><input name="job" placeholder="مثلاً: مواطن"></div>
+    <div class="field full"><label>معلومات إضافية</label><textarea name="extra" placeholder="معلومات اختيارية عن شخصيتك..."></textarea></div>
+   </div>
+   <div class="actions"><button class="btn">إنشاء جواز السفر</button></div>
+  </form>
+ </div>
+ <div id="passportResult" style="margin-top:25px"></div>
+</section>
+
+<!-- DEPARTURE -->
+<section id="departure" class="page">
+ <h2 class="section-title">طلب تذكرة المغادرة</h2>
+ <p class="subtitle">DEPARTURE TICKET — طلب مغادرة السيرفر في إطار Roleplay.</p>
+ <div class="formbox">
+  <div class="notice">⏰ يجب تقديم طلب المغادرة قبل موعد الرحلة بـ 48 ساعة على الأقل. الطلب لا يعني الموافقة التلقائية.</div>
+  <div id="departurePassportNotice"></div>
+  <form id="departureForm">
+   <div class="formgrid">
+    <div class="field"><label>اسم اللاعب Roblox *</label><input name="username" required></div>
+    <div class="field"><label>رقم جواز السفر RP *</label><input name="passport" required placeholder="RP-XXXXXXXX"></div>
+    <div class="field"><label>الوجهة *</label><input name="destination" required placeholder="اسم الدولة أو المدينة"></div>
+    <div class="field"><label>سبب السفر *</label><select name="reason" required><option value="">اختر السبب</option><option>السياحة</option><option>العمل</option><option>الدراسة</option><option>زيارة عائلية</option><option>سبب آخر</option></select></div>
+    <div class="field"><label>تاريخ ووقت المغادرة *</label><input type="datetime-local" name="departureDate" required></div>
+    <div class="field"><label>تاريخ العودة المتوقع *</label><input type="datetime-local" name="returnDate" required></div>
+    <div class="field full"><label>معلومات إضافية عن الرحلة</label><textarea name="details" placeholder="تفاصيل إضافية..."></textarea></div>
+   </div>
+   <div class="notice red">بإرسال الطلب، أقر بأن مغادرتي ستُسجّل كمغادرة RP. وفق قوانين السيرفر، قد يتم منع دخولي أثناء فترة السفر، ويجب تقديم تذكرة عودة جديدة للرجوع.</div>
+   <label><input type="checkbox" required style="width:auto"> أوافق على قوانين المغادرة والسفر.</label>
+   <div class="actions"><button class="btn">إرسال طلب المغادرة ✈</button></div>
+  </form>
+ </div>
+</section>
+
+<!-- RETURN -->
+<section id="return" class="page">
+ <h2 class="section-title">طلب تذكرة العودة</h2>
+ <p class="subtitle">RETURN TICKET — طلب الرجوع إلى السيرفر بعد السفر.</p>
+ <div class="formbox">
+  <div class="notice green">يمكن للاعب الذي سبق له السفر تقديم طلب تذكرة عودة جديدة للرجوع إلى السيرفر، وفق موافقة الإدارة.</div>
+  <form id="returnForm">
+   <div class="formgrid">
+    <div class="field"><label>اسم اللاعب Roblox *</label><input name="username" required></div>
+    <div class="field"><label>رقم جواز السفر RP *</label><input name="passport" required></div>
+    <div class="field"><label>الدولة الحالية *</label><input name="origin" required></div>
+    <div class="field"><label>وجهة العودة *</label><input name="destination" required placeholder="اسم السيرفر / المدينة"></div>
+    <div class="field"><label>تاريخ ووقت العودة *</label><input type="datetime-local" name="returnDate" required></div>
+    <div class="field"><label>رقم تذكرة المغادرة السابقة</label><input name="oldTicket" placeholder="اختياري"></div>
+    <div class="field full"><label>سبب العودة ومعلومات إضافية</label><textarea name="details" placeholder="أخبرنا بمعلومات العودة..."></textarea></div>
+   </div>
+   <div class="notice">يجب احترام قوانين السيرفر عند العودة. الموافقة على الطلب تخضع لمراجعة إدارة المطار وإدارة السيرفر.</div>
+   <label><input type="checkbox" required style="width:auto"> أوافق على قوانين العودة.</label>
+   <div class="actions"><button class="btn">إرسال طلب العودة</button></div>
+  </form>
+ </div>
+</section>
+
+<!-- TICKETS -->
+<section id="tickets" class="page">
+ <h2 class="section-title">طلباتي وتذاكري</h2>
+ <p class="subtitle">التذاكر التي تم إنشاؤها على هذا المتصفح.</p>
+ <div id="ticketList"></div>
+ <button class="btn secondary" onclick="renderTickets()">تحديث القائمة</button>
+</section>
+
+<!-- RULES -->
+<section id="rules" class="page">
+ <h2 class="section-title">قوانين المطار والسفر</h2>
+ <p class="subtitle">القوانين الرسمية المعتمدة لتنظيم حركة المسافرين داخل السيرفر.</p>
+ <div class="card card-body">
+  <h3 style="color:var(--gold)">أولاً: قوانين المغادرة</h3>
+  <div class="rule"><b>01 — حجز مسبق:</b> يجب تقديم طلب المغادرة قبل الرحلة بـ 48 ساعة على الأقل.</div>
+  <div class="rule"><b>02 — جواز السفر:</b> لا يسمح بطلب المغادرة دون جواز سفر RP.</div>
+  <div class="rule"><b>03 — صحة المعلومات:</b> يجب أن تكون بيانات اللاعب والوجهة وموعد السفر صحيحة.</div>
+  <div class="rule"><b>04 — انتظار الموافقة:</b> يجب انتظار موافقة إدارة المطار قبل اعتبار الرحلة مؤكدة.</div>
+  <div class="rule"><b>05 — تسجيل المغادرة:</b> بعد تأكيد المغادرة، تسجل حالة اللاعب كمسافر خارج السيرفر في نظام RP.</div>
+  <div class="rule"><b>06 — فترة السفر:</b> وفق قوانين السيرفر، يمنع اللاعب من الدخول أثناء فترة سفره، ويُطبّق ذلك بواسطة إدارة السيرفر.</div>
+
+  <h3 style="color:var(--gold);margin-top:30px">ثانياً: قوانين العودة</h3>
+  <div class="rule"><b>07 — تذكرة جديدة:</b> العودة تتطلب طلب تذكرة عودة جديدة.</div>
+  <div class="rule"><b>08 — الجواز:</b> يجب تقديم رقم جواز السفر السابق.</div>
+  <div class="rule"><b>09 — موافقة الإدارة:</b> لا تعتبر العودة مؤكدة حتى موافقة الإدارة.</div>
+  <div class="rule"><b>10 — احترام RP:</b> يجب احترام جميع إجراءات الوصول والتفتيش وقوانين السيرفر.</div>
+
+  <h3 style="color:var(--gold);margin-top:30px">ثالثاً: المخالفات</h3>
+  <div class="rule"><b>11 — المعلومات المزيفة:</b> يمكن رفض الطلب عند اكتشاف بيانات غير صحيحة.</div>
+  <div class="rule"><b>12 — التلاعب:</b> يمنع استعمال تذاكر لاعب آخر أو تزوير وثائق السفر.</div>
+  <div class="rule"><b>13 — إلغاء الرحلة:</b> يجب التواصل مع الإدارة في حالة إلغاء الرحلة أو تغيير الموعد.</div>
+ </div>
+</section>
+
+<!-- INFORMATION -->
+<section id="information" class="page">
+ <h2 class="section-title">معلومات المطار</h2>
+ <p class="subtitle">AIRPORT INFORMATION — الإدارة العامة لخدمات المسافرين.</p>
+ <div class="grid">
+  <div class="card card-body"><div class="icon">✈</div><h3>قسم الرحلات</h3><p>استقبال طلبات المغادرة والعودة ومراجعة بيانات المسافرين.</p></div>
+  <div class="card card-body"><div class="icon">▤</div><h3>قسم الجوازات</h3><p>إصدار جوازات السفر الافتراضية والتحقق من معلومات اللاعبين داخل RP.</p></div>
+  <div class="card card-body"><div class="icon">◈</div><h3>قسم الاستقبال</h3><p>مساعدة المسافرين والإجابة عن استفساراتهم.</p></div>
+  <div class="card card-body"><div class="icon">⚖</div><h3>الإدارة العامة</h3><p>مراجعة الطلبات واتخاذ قرارات الموافقة أو الرفض.</p></div>
+ </div>
+ <div class="notice">جميع الإجراءات والوثائق الواردة في هذا الموقع افتراضية ومخصصة لسيرفر Roblox Roleplay، ولا تمثل وثائق سفر حقيقية.</div>
+</section>
+
+</main>
+
+<footer>
+ <strong>AIRPORT RP</strong><br>
+ الإدارة العامة للمطار الدولي<br>
+ جميع الحقوق محفوظة © <span id="year"></span> — نظام خدمات السفر Roleplay
+</footer>
+
+<script>
+// =============================================
+// AIRPORT RP CONFIGURATION
+// =============================================
+
+// ضع رابط Discord Webhook الخاص بك هنا.
+// تنبيه: هذا الرابط سيكون مرئياً لكل زائر للموقع.
+// لا تستخدم Webhook حساساً أو إدارياً.
+const DISCORD_WEBHOOK = "PUT_YOUR_DISCORD_WEBHOOK_HERE";
+
+const STORAGE = "AIRPORT_RP_DATA_V1";
+
+function getData(){
+ try{return JSON.parse(localStorage.getItem(STORAGE))||{passport:null,tickets:[]}}
+ catch(e){return {passport:null,tickets:[]}}
+}
+function saveData(data){
+ localStorage.setItem(STORAGE,JSON.stringify(data));
+}
+function makeID(prefix){
+ return prefix+"-"+Math.random().toString(36).substring(2,6).toUpperCase()+"-"+Date.now().toString().slice(-5);
+}
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ const nav=document.querySelector('[data-page="'+id+'"]');
+ if(nav)nav.classList.add("active");
+ if(id==="tickets")renderTickets();
+ if(id==="passport")renderPassport();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function getFormData(form){
+ return Object.fromEntries(new FormData(form).entries());
+}
+function escapeHTML(value){
+ return String(value??"").replace(/[&<>"']/g,c=>({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+
+// Send a ticket to Discord
+async function sendDiscord(ticket){
+ if(!DISCORD_WEBHOOK || DISCORD_WEBHOOK.includes("PUT_YOUR")){
+  alert("تم حفظ الطلب محلياً، لكن لم يتم ضبط Discord Webhook بعد.");
+  return;
+ }
+ const fields=Object.entries(ticket.data).map(([key,value])=>({
+  name:key,value:String(value||"غير محدد").slice(0,1000),inline:true
+ }));
+ const payload={
+  username:"AIRPORT RP | Ticketing",
+  embeds:[{
+   title:"✈ طلب جديد — "+ticket.type,
+   description:"تم استلام طلب جديد عبر الموقع الرسمي للمطار.",
+   color:ticket.type==="DEPARTURE"?14268267:3582869,
+   fields:[
+    {name:"رقم الطلب",value:ticket.id,inline:true},
+    {name:"الحالة",value:"PENDING — قيد المراجعة",inline:true},
+    ...fields
+   ],
+   footer:{text:"AIRPORT RP Official Ticketing System"},
+   timestamp:new Date().toISOString()
+  }]
+ };
+ try{
+  const response=await fetch(DISCORD_WEBHOOK,{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify(payload)
+  });
+  if(!response.ok)throw new Error("Discord response "+response.status);
+  alert("تم إرسال الطلب بنجاح إلى Discord وحفظه في الموقع.");
+ }catch(error){
+  alert("تم حفظ الطلب محلياً، لكن تعذر إرساله إلى Discord. تحقق من Webhook.");
+  console.error(error);
+ }
+}
+
+// Passport creation
+document.getElementById("passportForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ const data=getData();
+ const details=getFormData(this);
+ const passport={
+  id:makeID("RP"),
+  created:new Date().toLocaleDateString("ar"),
+  details
+ };
+ data.passport=passport;
+ saveData(data);
+ renderPassport();
+ alert("تم إنشاء جواز السفر RP بنجاح!");
+ this.reset();
+});
+
+function renderPassport(){
+ const p=getData().passport;
+ const box=document.getElementById("passportResult");
+ if(!p){
+  box.innerHTML='<div class="notice">لم يتم إنشاء جواز سفر بعد. املأ النموذج أعلاه.</div>';
+  return;
+ }
+ const d=p.details;
+ box.innerHTML=`
+ <div class="passport">
+  <div class="eyebrow">AIRPORT RP • OFFICIAL DOCUMENT</div>
+  <h2>جواز سفر افتراضي</h2>
+  <div style="color:var(--muted)">ROLEPLAY PASSPORT</div>
+  <div class="data">
+   <div><small>Passport ID</small><b>${escapeHTML(p.id)}</b></div>
+   <div><small>الاسم الكامل</small><b>${escapeHTML(d.fullname)}</b></div>
+   <div><small>اسم المستخدم</small><b>${escapeHTML(d.username)}</b></div>
+   <div><small>الجنسية</small><b>${escapeHTML(d.nationality)}</b></div>
+   <div><small>تاريخ الميلاد</small><b>${escapeHTML(d.dob)}</b></div>
+   <div><small>الجنس</small><b>${escapeHTML(d.gender)}</b></div>
+   <div><small>المهنة</small><b>${escapeHTML(d.job||"غير محددة")}</b></div>
+   <div><small>تاريخ الإصدار</small><b>${escapeHTML(p.created)}</b></div>
+  </div>
+  <p style="color:var(--gold);margin-top:25px">✦ وثيقة افتراضية خاصة بسيرفر AIRPORT RP ✦</p>
+ </div>
+ <div class="actions"><button class="btn secondary" onclick="window.print()">طباعة الجواز</button></div>`;
+}
+
+// Departure ticket
+document.getElementById("departureForm").addEventListener("submit",async function(e){
+ e.preventDefault();
+ const data=getData();
+ if(!data.passport){
+  alert("يجب إنشاء جواز سفر RP أولاً.");
+  showPage("passport");return;
+ }
+ const d=getFormData(this);
+ if(d.passport.trim()!==data.passport.id){
+  alert("رقم جواز السفر غير مطابق للجواز المسجل في هذا المتصفح.");
+  return;
+ }
+ if(d.username.trim().toLowerCase()!==data.passport.details.username.trim().toLowerCase()){
+  alert("اسم Roblox غير مطابق للجواز المسجل.");
+  return;
+ }
+ const departure=new Date(d.departureDate);
+ const returnDate=new Date(d.returnDate);
+ const now=new Date();
+ if(isNaN(departure)||departure.getTime()-now.getTime()<48*60*60*1000){
+  alert("يجب أن يكون موعد المغادرة بعد 48 ساعة على الأقل من الآن.");
+  return;
+ }
+ if(isNaN(returnDate)||returnDate<=departure){
+  alert("تاريخ العودة يجب أن يكون بعد تاريخ المغادرة.");
+  return;
+ }
+ const ticket={id:makeID("DEP"),type:"DEPARTURE",status:"PENDING",created:new Date().toISOString(),data:d};
+ data.tickets.push(ticket);saveData(data);
+ this.reset();
+ sendDiscord(ticket);
+});
+
+// Return ticket
+document.getElementById("returnForm").addEventListener("submit",async function(e){
+ e.preventDefault();
+ const data=getData();
+ if(!data.passport){
+  alert("يجب إنشاء جواز سفر RP أولاً.");
+  showPage("passport");return;
+ }
+ const d=getFormData(this);
+ if(d.passport.trim()!==data.passport.id){
+  alert("رقم جواز السفر غير مطابق.");
+  return;
+ }
+ if(d.username.trim().toLowerCase()!==data.passport.details.username.trim().toLowerCase()){
+  alert("اسم Roblox غير مطابق للجواز المسجل.");
+  return;
+ }
+ const date=new Date(d.returnDate);
+ if(isNaN(date)||date<=new Date()){
+  alert("يجب اختيار موعد عودة في المستقبل.");
+  return;
+ }
+ const ticket={id:makeID("RET"),type:"RETURN",status:"PENDING",created:new Date().toISOString(),data:d};
+ data.tickets.push(ticket);saveData(data);
+ this.reset();
+ sendDiscord(ticket);
+});
+
+// Display local tickets
+function renderTickets(){
+ const tickets=getData().tickets;
+ const list=document.getElementById("ticketList");
+ if(!tickets.length){
+  list.innerHTML='<div class="notice">لا توجد تذاكر محفوظة على هذا المتصفح حالياً.</div>';
+  return;
+ }
+ list.innerHTML=tickets.slice().reverse().map(t=>`
+ <div class="ticket">
+  <div class="ticket-head">
+   <b>${t.type==="DEPARTURE"?"✈ تذكرة مغادرة":"↩ تذكرة عودة"}</b>
+   <span class="status">● ${escapeHTML(t.status)}</span>
+  </div>
+  <p>رقم الطلب: <b>${escapeHTML(t.id)}</b></p>
+  <p>اسم اللاعب: ${escapeHTML(t.data.username)}</p>
+  <p>الوجهة: ${escapeHTML(t.data.destination)}</p>
+  <p>تاريخ الطلب: ${new Date(t.created).toLocaleString("ar")}</p>
+  <small style="color:var(--muted)">الحالة: الطلب قيد المراجعة، تابع Discord لمعرفة القرار.</small>
+ </div>`).join("");
+}
+
+document.getElementById("year").textContent=new Date().getFullYear();
+renderPassport();
+renderTickets();
+</script>
+</body>
+</html>
